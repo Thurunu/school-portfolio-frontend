@@ -16,6 +16,7 @@ const NavBar = () => {
         <a href="#" className="font-bold text-2xl sm:text-3xl flex gap-2">
           <img src={logo} alt="Logo" className="w-10" />
         </a>
+      
 
         {/* Links */}
         <ul className="sm:flex hidden items-center gap-8">

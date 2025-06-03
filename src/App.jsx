@@ -5,6 +5,7 @@ import "aos/dist/aos.css";
 import NavBar from './components/NavBar/NavBar'
 import Home from './components/Home/Home'
 import Gallery from './components/Gallery/Gallery'
+import NewsFeed from './components/NewsFeed/NewsFeed';
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
       <NavBar />
       <Home />
       <Gallery />
+      <NewsFeed />
     </div>
   )
 }
