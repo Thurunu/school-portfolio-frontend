@@ -1,11 +1,12 @@
 import React from "react";
 import logo from "../../../public/school_logo.png";
 
+
 const Menu = [
-  { id: 1, name: "Home", link: "#" },
-  { id: 2, name: "Gallery", link: "/gallery" },
-  { id: 3, name: "News Feed", link: "/news-feed" },
-  { id: 4, name: "About", link: "/about" },
+  { id: 1, name: "Home", link: "#home" },
+  { id: 2, name: "Gallery", link: "#gallery" },
+  { id: 3, name: "News Feed", link: "#news-feed" },
+  { id: 4, name: "About", link: "#about" },
 ];
 
 const NavBar = () => {

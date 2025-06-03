@@ -10,7 +10,7 @@ const ImageList = [
     id: 1,
     img: Image1,
     title: "",
-    description: ""
+    description: "",
   },
   {
     id: 2,
@@ -23,7 +23,8 @@ const ImageList = [
     img: Image3,
     title: " ",
     description: " ",
-  },  {
+  },
+  {
     id: 4,
     img: Image4,
     title: " ",
@@ -46,56 +47,61 @@ const Home = () => {
   };
 
   return (
-    <div className="relative w-full h-[650px] overflow-hidden">
-      {/* Full-width background image slider */}
-      <div className="absolute inset-0 z-0">
-        <Slider {...settings}>
-          {ImageList.map((data) => (
-            <div key={data.id}>
-              <div 
-              data-aos="zoom-in"
-              data-aos-once="ture"
-              className="w-full h-[650px]">
-                <img
-                  src={data.img}
-                  alt={data.title}
-                  className="w-full h-full object-cover"
-                />
+    <section id="home">
+      <div className="relative w-full h-[650px] overflow-hidden">
+        {/* Full-width background image slider */}
+        <div className="absolute inset-0 z-0">
+          <Slider {...settings}>
+            {ImageList.map((data) => (
+              <div key={data.id}>
+                <div
+                  data-aos="zoom-in"
+                  data-aos-once="ture"
+                  className="w-full h-[650px]"
+                >
+                  <img
+                    src={data.img}
+                    alt={data.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
-            </div>
-          ))}
-        </Slider>
-      </div>
-      
-      {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/30 z-5"></div>
-      
-      {/* Content overlay */}
-      <div className="relative z-10 h-full flex items-center">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl">
-            {/* text content section */}
-            <div className="flex flex-col justify-center gap-4 text-white drop-shadow-2xl p-3 ">
-              <h1 
-              data-aos="zoom-out"
-              data-aos-duration="500"
-              data-aos-once="true"
-              className="text-5xl sm:text-6xl lg:text-7xl font-bold drop-shadow-sm">
-                lorem ipsum dolor sit.
-              </h1>
-              <p 
-              data-aos="zoom-out"
-              data-aos-duration="500"
-              data-aos-once="true"
-              className="text-lg opacity-90">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias,
-                dolor.
-              </p>
+            ))}
+          </Slider>
+        </div>
+
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/30 z-5"></div>
+
+        {/* Content overlay */}
+        <div className="relative z-10 h-full flex items-center">
+          <div className="container mx-auto px-4">
+            <div className="max-w-2xl">
+              {/* text content section */}
+              <div className="flex flex-col justify-center gap-4 text-white drop-shadow-2xl p-3 ">
+                <h1
+                  data-aos="zoom-out"
+                  data-aos-duration="500"
+                  data-aos-once="true"
+                  className="text-5xl sm:text-6xl lg:text-7xl font-bold drop-shadow-sm"
+                >
+                  lorem ipsum dolor sit.
+                </h1>
+                <p
+                  data-aos="zoom-out"
+                  data-aos-duration="500"
+                  data-aos-once="true"
+                  className="text-lg opacity-90"
+                >
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Alias, dolor.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

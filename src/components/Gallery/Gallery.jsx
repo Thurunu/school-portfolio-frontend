@@ -3,6 +3,7 @@ import Img1 from "../../assets/gallery/gallery_image_1.jpg";
 import Img2 from "../../assets/gallery/gallery_image_2.jpg";
 import Img3 from "../../assets/gallery/gallery_image_3.jpg";
 import Img4 from "../../assets/gallery/gallery_image_4.jpg";
+import Img5 from "../../assets/gallery/gallery_image_5.jpg";
 
 const GalleryData = [
   {
@@ -33,10 +34,19 @@ const GalleryData = [
     desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium, numquam?",
     aosDelay: "600",
   },
+  {
+    id: 5,
+    img: Img5,
+    title: "Lorem, ipsum.",
+    desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium, numquam?",
+    aosDelay: "800",
+  },
 ];
 
 const Gallery = () => {
   return (
+    <section id="gallery">
+
     <div className="mt-14 mb-12">
       <div className="container">
         {/* Header Section  */}
@@ -74,6 +84,7 @@ const Gallery = () => {
         </div>
       </div>
     </div>
+    </section>
   );
 };
 

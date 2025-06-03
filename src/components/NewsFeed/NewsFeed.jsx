@@ -24,8 +24,15 @@ const NewsData = [
   },
 ];
 
-const NewsFeed = () => {
+const NewsFeed = ({ handleNewsPopup }) => {
+  const [showAll, setShowAll] = React.useState(false);
+  
+  // Show only first 2 news items by default
+  const displayedNews = showAll ? NewsData : NewsData.slice(0, 2);
+
   return (
+    <section id="news-feed">
+
     <div className="min-h-[550px] flex justify-center items-center py-12 sm:py-0">
       <div className="container px-4 mx-auto">
         {/* Header Section  */}
@@ -37,9 +44,10 @@ const NewsFeed = () => {
             Our Best Moments
           </p>
         </div>
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 items-center">
-          {/* Image section */}
-          {NewsData.map((data) => (
+          {/* News Items */}
+          {displayedNews.map((data) => (
             <div
               key={data.id}
               className="grid grid-cols-1 sm:grid-cols-2 gap-10 items-center"
@@ -67,10 +75,12 @@ const NewsFeed = () => {
                 >
                   {data.desc}
                 </p>
+                {/* Button to open popup */}
                 <button
                   data-aos="fade-up"
                   className="bg-primary text-white px-4 py-2 rounded hover:bg-secondary hover:text-black transition-colors duration-300 cursor-pointer w-fit"
                   type="button"
+                  onClick={() => handleNewsPopup(data.id, data.title, data.bannerImg, data.desc)}
                 >
                   Read more...
                 </button>
@@ -78,8 +88,37 @@ const NewsFeed = () => {
             </div>
           ))}
         </div>
+        
+        {/* See More Button */}
+        {!showAll && NewsData.length > 2 && (
+          <div className="text-center mt-12">
+            <button
+              data-aos="fade-up"
+              className="bg-primary text-white px-6 py-3 rounded hover:bg-secondary hover:text-black transition-colors duration-300 cursor-pointer"
+              type="button"
+              onClick={() => setShowAll(true)}
+            >
+              See More
+            </button>
+          </div>
+        )}
+        
+        {/* Show Less Button (optional) */}
+        {showAll && NewsData.length > 2 && (
+          <div className="text-center mt-12">
+            <button
+              data-aos="fade-up"
+              className="bg-primary text-white px-6 py-3 rounded hover:bg-secondary hover:text-black transition-colors duration-300 cursor-pointer"
+              type="button"
+              onClick={() => setShowAll(false)}
+            >
+              Show Less
+            </button>
+          </div>
+        )}
       </div>
     </div>
+    </section>
   );
 };
 
