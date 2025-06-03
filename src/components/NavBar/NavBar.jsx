@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../../public/school_logo.svg";
+import logo from "../../../public/school_logo.png";
 
 const Menu = [
   { id: 1, name: "Home", link: "#" },
@@ -11,7 +11,7 @@ const Menu = [
 const NavBar = () => {
   return (
     <div className="bg-primary py-4 shadow-md">
-      <div className="container mx-auto px-4 flex justify-between items-center">
+      <div className="container mx-auto px-10 flex justify-between items-center">
         {/* Logo */}
         <a href="#" className="font-bold text-2xl sm:text-3xl flex gap-2">
           <img src={logo} alt="Logo" className="w-10" />
