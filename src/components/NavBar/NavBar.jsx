@@ -1,17 +1,38 @@
-import React from 'react'
-import logo from '../../../public/school_logo.svg';
+import React from "react";
+import logo from "../../../public/school_logo.svg";
+
+const Menu = [
+  { id: 1, name: "Home", link: "#" },
+  { id: 2, name: "Gallery", link: "/gallery" },
+  { id: 3, name: "News Feed", link: "/news-feed" },
+  { id: 4, name: "About", link: "/about" },
+];
 
 const NavBar = () => {
   return (
-    <div className='bg-primary py-3 sm:py-0 shadow-md  dark:bg-gray-900 dark:text-white'>
+    <div className="bg-primary py-4 shadow-md">
+      <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
-      <div className='container flex justifiy-between intems-center'>
-        <a href='#' className='font-bold text-2xl sm:text-3xl flex gap-2'><img src={logo} alt='Logo' className='w-10 uppercase' /></a>
-      </div>
-      {/* Links */}
-      <div></div>
-    </div>
-  )
-}
+        <a href="#" className="font-bold text-2xl sm:text-3xl flex gap-2">
+          <img src={logo} alt="Logo" className="w-10" />
+        </a>
 
-export default NavBar
+        {/* Links */}
+        <ul className="sm:flex hidden items-center gap-8">
+          {Menu.map((data) => (
+            <li key={data.id}>
+              <a
+                href={data.link}
+                className="inline-block px-3 text-white hover:text-secondary duration-200"
+              >
+                {data.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default NavBar;
