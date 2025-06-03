@@ -1,8 +1,8 @@
 import React from "react";
-import Image1 from "../../assets/home_image_1.jpg";
-import Image2 from "../../assets/home_image_2.jpg";
-import Image3 from "../../assets/home_image_3.jpg";
-import Image4 from "../../assets/home_image_4.jpg";
+import Image1 from "../../assets/home/home_image_1.jpg";
+import Image3 from "../../assets/home/home_image_3.jpg";
+import Image4 from "../../assets/home/home_image_4.jpg";
+import Image2 from "../../assets/home/home_image_2.jpg";
 import Slider from "react-slick";
 
 const ImageList = [
@@ -52,7 +52,10 @@ const Home = () => {
         <Slider {...settings}>
           {ImageList.map((data) => (
             <div key={data.id}>
-              <div className="w-full h-[650px]">
+              <div 
+              data-aos="zoom-in"
+              data-aos-once="ture"
+              className="w-full h-[650px]">
                 <img
                   src={data.img}
                   alt={data.title}
@@ -73,10 +76,18 @@ const Home = () => {
           <div className="max-w-2xl">
             {/* text content section */}
             <div className="flex flex-col justify-center gap-4 text-white drop-shadow-2xl p-3 ">
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold drop-shadow-sm">
+              <h1 
+              data-aos="zoom-out"
+              data-aos-duration="500"
+              data-aos-once="true"
+              className="text-5xl sm:text-6xl lg:text-7xl font-bold drop-shadow-sm">
                 lorem ipsum dolor sit.
               </h1>
-              <p className="text-lg opacity-90">
+              <p 
+              data-aos="zoom-out"
+              data-aos-duration="500"
+              data-aos-once="true"
+              className="text-lg opacity-90">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias,
                 dolor.
               </p>
