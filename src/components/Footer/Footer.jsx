@@ -1,6 +1,6 @@
 import React from "react";
 import footerLogo from "../../../public/school_logo_transparent.png";
-import Banner from "../../assets/common/footer-pattern.jpg";
+import Banner from "../../assets/common/footer_pattern.png";
 import {
   FaFacebook,
   FaInstagram,
@@ -20,18 +20,22 @@ const BannerImg = {
 
 const FooterLinks = [
   {
+    id: 1,
     title: "Home",
     link: "/#",
   },
   {
+    id: 2,
     title: "Gallery",
     link: "/gallery",
   },
   {
+    id: 3,
     title: "News Feed",
     link: "/news-feed",
   },
   {
+    id: 4,
     title: "About",
     link: "/about",
   },
@@ -39,11 +43,9 @@ const FooterLinks = [
 
 const Footer = () => {
   return (
-    <div style={BannerImg} className="text-white mb-20">
+    <div style={BannerImg} className="text-white mb-5">
       <div className="container">
-        <div 
-        data-aos="zoom-in"
-        className="grid md:grid-cols-3 pb-44 pt-5">
+        <div data-aos="zoom-in" className="grid md:grid-cols-3 pb-15 pt-5">
           {/* school details  */}
           <div className="py-8 px-4">
             <h1 className="sm:text-3xl text-xl font-bold sm:text-left text-justify mb-3 flex items-center gap-3">
@@ -66,7 +68,10 @@ const Footer = () => {
                 </h1>
                 <ul className="flex flex-col gap-3">
                   {FooterLinks.map((link) => (
-                    <li className="cursor-pointer hover:text-secondary hover:translate-x-1 duration-300 text-gray-200">
+                    <li
+                      key={link.id}
+                      className="cursor-pointer hover:text-secondary hover:translate-x-1 duration-300 text-gray-200"
+                    >
                       <span>{link.title}</span>
                     </li>
                   ))}
@@ -80,7 +85,9 @@ const Footer = () => {
                 </h1>
                 <ul className="flex flex-col gap-3">
                   {FooterLinks.map((link) => (
-                    <li className="cursor-pointer hover:text-secondary hover:translate-x-1 duration-300 text-gray-200">
+                    <li 
+                    key={link.id}
+                    className="cursor-pointer hover:text-secondary hover:translate-x-1 duration-300 text-gray-200">
                       <span>{link.title}</span>
                     </li>
                   ))}

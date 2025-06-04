@@ -1,5 +1,7 @@
 import React from "react";
 import { IoCloseOutline } from "react-icons/io5";
+import testImg from "../../assets/banners/banner_img_1.jpg"; 
+
 
 const Popup = ({ newsPopup, setNewsPopup, selectedNews }) => {
   return (
@@ -25,7 +27,8 @@ const Popup = ({ newsPopup, setNewsPopup, selectedNews }) => {
                 {selectedNews.image && (
                   <div className="flex-shrink-0">
                     <img
-                      src={selectedNews.image}
+                      // src={selectedNews.image}
+                      src={testImg}
                       alt={selectedNews.title}
                       className="w-full max-w-[400px] h-[350px] object-cover drop-shadow-[-10px_10px_12px_rgba(0,0,0,1)]"
                     />

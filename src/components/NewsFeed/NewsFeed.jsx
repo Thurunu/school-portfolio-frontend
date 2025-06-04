@@ -1,34 +1,30 @@
 import React from "react";
-import BannerImg1 from "../../assets/banners/banner_img_1.jpg";
-import BannerImg2 from "../../assets/banners/banner_img_2.jpg";
-import BannerImg3 from "../../assets/banners/banner_img_3.jpg";
+import axios from "axios";
+import testImg from "../../assets/banners/banner_img_1.jpg"; 
 
-const NewsData = [
-  {
-    id: 1,
-    title: "Lorem ipsum dolor sit amet.",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt, optio?",
-    bannerImg: BannerImg1,
-  },
-  {
-    id: 2,
-    title: "Lorem ipsum dolor sit amet.",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt, optio?",
-    bannerImg: BannerImg2,
-  },
-  {
-    id: 3,
-    title: "Lorem ipsum dolor sit amet.",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt, optio?",
-    bannerImg: BannerImg3,
-  },
-];
 
 const NewsFeed = ({ handleNewsPopup }) => {
+
+  const [newsData, setNewsData] = React.useState([]);
+  
   const [showAll, setShowAll] = React.useState(false);
+
+  // Fetch data from api
+  React.useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/news-feed");
+        // console.log(response.data[0].bannerImg);
+        setNewsData(response.data);
+      } catch (error) {
+        console.error("Error occured while fetching news data: ", error)
+      }
+    };
+    fetchNews();
+  }, []);
   
   // Show only first 2 news items by default
-  const displayedNews = showAll ? NewsData : NewsData.slice(0, 2);
+  const displayedNews = showAll ? newsData : newsData.slice(0, 2);
 
   return (
     <section id="news-feed">
@@ -55,7 +51,8 @@ const NewsFeed = ({ handleNewsPopup }) => {
               {/* Image section */}
               <div data-aos="zoom-in" className="flex justify-center">
                 <img
-                  src={data.bannerImg}
+                  // src={data.bannerImg}
+                  src={testImg}
                   alt={data.title}
                   className="w-full max-w-[400px] h-[350px] object-cover drop-shadow-[-10px_10px_12px_rgba(0,0,0,1)]"
                 />
@@ -73,14 +70,15 @@ const NewsFeed = ({ handleNewsPopup }) => {
                   data-aos="fade-up"
                   className="text-sm text-gray-600 tracking-wide leading-6"
                 >
-                  {data.desc}
+                    {data.desc.split(" ").slice(0, 60).join(" ") + (data.desc.split(" ").length > 10 ? "..." : "")}
+
                 </p>
                 {/* Button to open popup */}
                 <button
                   data-aos="fade-up"
                   className="bg-primary text-white px-4 py-2 rounded hover:bg-secondary hover:text-black transition-colors duration-300 cursor-pointer w-fit"
                   type="button"
-                  onClick={() => handleNewsPopup(data.id, data.title, data.bannerImg, data.desc)}
+                  onClick={() => handleNewsPopup(data.id)}
                 >
                   Read more...
                 </button>
@@ -90,7 +88,7 @@ const NewsFeed = ({ handleNewsPopup }) => {
         </div>
         
         {/* See More Button */}
-        {!showAll && NewsData.length > 2 && (
+        {!showAll && newsData.length > 2 && (
           <div className="text-center mt-12">
             <button
               data-aos="fade-up"
@@ -103,8 +101,8 @@ const NewsFeed = ({ handleNewsPopup }) => {
           </div>
         )}
         
-        {/* Show Less Button (optional) */}
-        {showAll && NewsData.length > 2 && (
+        {/* Show Less Button */}
+        {showAll && newsData.length > 2 && (
           <div className="text-center mt-12">
             <button
               data-aos="fade-up"

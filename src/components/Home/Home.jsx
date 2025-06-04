@@ -85,7 +85,7 @@ const Home = () => {
                   data-aos-once="true"
                   className="text-5xl sm:text-6xl lg:text-7xl font-bold drop-shadow-sm"
                 >
-                  lorem ipsum dolor sit.
+                  School Name
                 </h1>
                 <p
                   data-aos="zoom-out"
