@@ -10,6 +10,7 @@ import About from "./components/About/About";
 import Footer from "./components/Footer/Footer";
 import Popup from "./components/Popup/Popup";
 import GalleryPopup from "./components/Popup/GalleryPopup";
+import Events from "./components/Events/Events";
 
 const App = () => {
   const [newsPopup, setNewsPopup] = React.useState(false);
@@ -79,6 +80,7 @@ const App = () => {
       <NavBar />
       <Home />
       <Gallery handleGalleryPopup={handleGalleryPopup} /> {/* Pass the function as prop */}
+      <Events />
       <NewsFeed handleNewsPopup={handleNewsPopup} />
       <About />
       <Footer />

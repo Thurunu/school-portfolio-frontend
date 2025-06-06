@@ -6,8 +6,9 @@ import { Menu, X } from "lucide-react"; // Hamburger and Close icons
 const menuItems = [
   { id: 1, name: "Home", link: "#home" },
   { id: 2, name: "Gallery", link: "#gallery" },
-  { id: 3, name: "News Feed", link: "#news-feed" },
-  { id: 4, name: "About", link: "#about" },
+  { id: 3, name: "Events", link: "#events" },
+  { id: 4, name: "News Feed", link: "#news-feed" },
+  { id: 5, name: "About", link: "#about" },
 ];
 
 const NavBar = () => {
@@ -17,7 +18,10 @@ const NavBar = () => {
     <div className="bg-primary py-4 shadow-md fixed top-0 left-0 w-full z-50">
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
-        <a href="#" className="font-bold text-2xl sm:text-3xl flex gap-2 items-center text-white">
+        <a
+          href="#"
+          className="font-bold text-2xl sm:text-3xl flex gap-2 items-center text-white"
+        >
           <img src={logo} alt="Logo" className="w-10" />
           {TEXTS.SCHOOL_NAME}
         </a>
