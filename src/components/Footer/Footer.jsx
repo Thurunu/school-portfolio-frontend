@@ -1,5 +1,6 @@
 import React from "react";
-import footerLogo from "../../../public/school_logo_transparent.png";
+import { TEXTS } from "../Constants/text";
+import footerLogo from "../../assets/common/school_logo_transparent.png";
 import Banner from "../../assets/common/footer_pattern.png";
 import {
   FaFacebook,
@@ -14,113 +15,116 @@ const BannerImg = {
   backgroundPosition: "bottom",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
-  height: "100%",
-  width: "100%",
 };
 
 const FooterLinks = [
-  {
-    id: 1,
-    title: "Home",
-    link: "/#",
-  },
-  {
-    id: 2,
-    title: "Gallery",
-    link: "/gallery",
-  },
-  {
-    id: 3,
-    title: "News Feed",
-    link: "/news-feed",
-  },
-  {
-    id: 4,
-    title: "About",
-    link: "/about",
-  },
+  { id: 1, title: "Home", link: "/#" },
+  { id: 2, title: "Gallery", link: "/gallery" },
+  { id: 3, title: "News Feed", link: "/news-feed" },
+  { id: 4, title: "About", link: "/about" },
 ];
 
 const Footer = () => {
   return (
-    <div style={BannerImg} className="text-white mb-5">
-      <div className="container">
-        <div data-aos="zoom-in" className="grid md:grid-cols-3 pb-15 pt-5">
-          {/* school details  */}
-          <div className="py-8 px-4">
-            <h1 className="sm:text-3xl text-xl font-bold sm:text-left text-justify mb-3 flex items-center gap-3">
-              <img src={footerLogo} alt="" className="max-w-[50px]" />
-              School name
-            </h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos
-              aspernatur veniam architecto atque facere, eligendi similique
-              corporis odit, ipsa magnam error? Hic quae, voluptatibus sit
-              praesentium iure quis repudiandae repellendus?
+    <footer style={BannerImg} className="text-white py-10 mt-10">
+      <div className="container mx-auto px-4">
+        {/* Four Column Grid Section */}
+        <div className="grid md:grid-cols-4 gap-8" data-aos="zoom-in">
+          {/* School Info */}
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <img src={footerLogo} alt="School Logo" className="w-12 h-12" />
+              <h1 className="text-xl font-bold">{TEXTS.SCHOOL_NAME}</h1>
+            </div>
+            <p className="text-gray-300 text-sm mb-4">
+              {TEXTS.FOOTER_DESCRIPTION}
             </p>
+            <div className="flex items-center gap-2 mb-2 text-sm">
+              <FaLocationArrow />
+              <span>{TEXTS.FOOTER_ADDRESS}</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <FaMobileAlt />
+              <span>{TEXTS.FOOTER_PHONE}</span>
+            </div>
+            <p className="mt-5">{TEXTS.FOOTER_COPYRIGHT}</p>
           </div>
-          {/* footer links */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 col-span-2 md_pl-10">
-            <div>
-              <div className="py-8 px-4">
-                <h1 className="sm:text-3xl text-xl font-bold sm:text-left text-justify mb-3">
-                  Important Links
-                </h1>
-                <ul className="flex flex-col gap-3">
-                  {FooterLinks.map((link) => (
-                    <li
-                      key={link.id}
-                      className="cursor-pointer hover:text-secondary hover:translate-x-1 duration-300 text-gray-200"
-                    >
-                      <span>{link.title}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div>
-              <div className="py-8 px-4">
-                <h1 className="sm:text-3xl text-xl font-bold sm:text-left text-justify mb-3">
-                  Links
-                </h1>
-                <ul className="flex flex-col gap-3">
-                  {FooterLinks.map((link) => (
-                    <li 
-                    key={link.id}
-                    className="cursor-pointer hover:text-secondary hover:translate-x-1 duration-300 text-gray-200">
-                      <span>{link.title}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+          {/* Quick Links */}
+          <div>
+            <h2 className="text-xl font-semibold mb-4">Quick Links</h2>
+            <ul className="flex flex-col gap-2">
+              {FooterLinks.map((link) => (
+                <li
+                  key={link.id}
+                  className="text-gray-200 hover:text-secondary cursor-pointer transition-all duration-300 hover:translate-x-1"
+                >
+                  {link.title}
+                </li>
+              ))}
+            </ul>
+          </div>
 
-            {/* social links */}
-            <div>
-              <div className="flex intems-center gap-3 mt-6">
-                <a href="#">
-                  <FaFacebook className="text-3xl" />
-                </a>
-                <a href="#">
-                  <FaInstagram className="text-3xl" />
-                </a>
-                <a href="#">
-                  <FaYoutube className="text-3xl" />
-                </a>
-              </div>
-              <div className="mt-6">
-                <div className="flex items-center gap-3">
-                  <FaLocationArrow /> <p> 123/E, Sri Lanka</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaMobileAlt /> <p> +94 12345678</p>
-                </div>
-              </div>
+          {/* Social Links */}
+          <div>
+            <h2 className="text-xl font-semibold mb-4">Follow Us</h2>
+            <div className="flex flex-col gap-3">
+              <a
+                href="#"
+                aria-label="Facebook"
+                className="flex items-center gap-3 text-gray-200 hover:text-secondary transition"
+              >
+                <FaFacebook className="text-xl" />
+                <span>Facebook</span>
+              </a>
+              <a
+                href="#"
+                aria-label="Instagram"
+                className="flex items-center gap-3 text-gray-200 hover:text-secondary transition"
+              >
+                <FaInstagram className="text-xl" />
+                <span>Instagram</span>
+              </a>
+              <a
+                href="#"
+                aria-label="YouTube"
+                className="flex items-center gap-3 text-gray-200 hover:text-secondary transition"
+              >
+                <FaYoutube className="text-xl" />
+                <span>YouTube</span>
+              </a>
             </div>
+          </div>
+
+          {/* Send Message */}
+          <div>
+            <h2 className="text-xl font-semibold mb-4">Send Message</h2>
+            <form className="grid gap-3">
+              <input
+                type="text"
+                placeholder="Name"
+                className="p-2 rounded bg-gray-800 text-white border border-gray-600 text-sm"
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                className="p-2 rounded bg-gray-800 text-white border border-gray-600 text-sm"
+              />
+              <textarea
+                placeholder="Message"
+                className="p-2 rounded bg-gray-800 text-white border border-gray-600 text-sm"
+                rows="2"
+              ></textarea>
+              <button
+                type="submit"
+                className="bg-secondary hover:bg-secondary/80 text-white px-3 py-2 rounded text-sm"
+              >
+                Send
+              </button>
+            </form>
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

@@ -45,16 +45,16 @@ const App = () => {
   };
 
   const handleNewsPopup = async (id) => {
+    
     try {
       const response = await axios.get(
         `http://localhost:3000/api/news-feed/${id}`
       );
       const news = response.data;
-      console.log(id);
       setSelectedNews({
         id: news.id,
         title: news.title,
-        image: news.bannerImg,
+        image: news.img,
         body: news.desc,
       });
       console.log(selectedNews);

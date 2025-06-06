@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios"; 
+import axios from "axios";
 import { IoCloseOutline } from "react-icons/io5";
 
 const GalleryPopup = ({ galleryPopup, setGalleryPopup, selectedGallery }) => {
@@ -10,13 +10,13 @@ const GalleryPopup = ({ galleryPopup, setGalleryPopup, selectedGallery }) => {
     const fetchImages = async () => {
       // Only fetch if popup is open and we have a gallery ID
       if (!galleryPopup || !selectedGallery.id) return;
-      
+
       setLoading(true);
       try {
         const response = await axios.get(
           `http://localhost:3000/api/gallery/${selectedGallery.id}`
         );
-        setImages(response.data.img || []); 
+        setImages(response.data.img || []);
         console.log("Fetched images:", response.data.img);
       } catch (error) {
         console.error("Error fetching gallery images:", error);
@@ -29,20 +29,18 @@ const GalleryPopup = ({ galleryPopup, setGalleryPopup, selectedGallery }) => {
     fetchImages();
   }, [galleryPopup, selectedGallery.id]);
 
-
-
   return (
     <>
       {galleryPopup && (
         <div className="h-screen w-screen fixed top-0 left-0 bg-black/50 z-50 backdrop-blur-sm">
-            <div className="fixed inset-0 m-[100px] bg-white p-6 rounded-md shadow-lg z-50 w-[calc(100vw-200px)] h-[calc(100vh-200px)] overflow-auto">
-            {/* Header */}
-            <div className="flex items-center justify-between mb-6">
+          <div className="fixed inset-0 m-[40px] bg-white p-6 rounded-md shadow-lg z-50 w-[calc(100vw-80px)] h-[calc(100vh-80px)] overflow-auto">
+            {/* Header and Close Button */}
+            <div className="sticky top-0 z-10 bg-white flex items-center justify-between mb-6 p-2 border-b border-gray-200">
               <h1 className="text-3xl sm:text-4xl font-bold text-black">
                 {selectedGallery.title}
               </h1>
               <IoCloseOutline
-                className="text-2xl cursor-pointer"
+                className="text-3xl cursor-pointer hover:opacity-70 transition-opacity"
                 onClick={() => setGalleryPopup(false)}
               />
             </div>
@@ -56,16 +54,16 @@ const GalleryPopup = ({ galleryPopup, setGalleryPopup, selectedGallery }) => {
 
             {/* Gallery Section */}
             {!loading && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="flex flex-wrap gap-4 justify-start">
                 {images.length > 0 ? (
                   images.map((image, index) => (
                     <img
                       key={index}
                       src={image.url || image.src || image} // Multiple fallbacks for different data structures
                       alt={`Gallery image ${index + 1}`}
-                      className="w-full h-48 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+                      className="object-contain max-h-72 w-auto rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
                       onError={(e) => {
-                        e.target.style.display = 'none'; // Hide broken images
+                        e.target.style.display = "none"; // Hide broken images
                       }}
                     />
                   ))

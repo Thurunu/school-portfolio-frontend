@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import logo from "../../../public/school_logo.png";
+import { TEXTS } from "../Constants/text"; // Importing text constants
+import logo from "../../assets/common/school_logo.png";
 import { Menu, X } from "lucide-react"; // Hamburger and Close icons
 
 const menuItems = [
@@ -18,7 +19,7 @@ const NavBar = () => {
         {/* Logo */}
         <a href="#" className="font-bold text-2xl sm:text-3xl flex gap-2 items-center text-white">
           <img src={logo} alt="Logo" className="w-10" />
-          School Name
+          {TEXTS.SCHOOL_NAME}
         </a>
 
         {/* Desktop Menu */}

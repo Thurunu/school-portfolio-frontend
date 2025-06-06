@@ -1,34 +1,37 @@
 import React from "react";
+import { TEXTS } from "../Constants/text";
 import Image1 from "../../assets/home/home_image_1.jpg";
 import Image3 from "../../assets/home/home_image_3.jpg";
 import Image4 from "../../assets/home/home_image_4.jpg";
 import Image2 from "../../assets/home/home_image_2.jpg";
+import Image5 from "../../assets/home/home_image_5.webp";
 import Slider from "react-slick";
 
 const ImageList = [
   {
     id: 1,
-    img: Image1,
-    title: "",
-    description: "",
+    img: Image5,
+    title: " ",
   },
   {
     id: 2,
     img: Image2,
     title: " ",
-    description: " ",
   },
   {
     id: 3,
     img: Image3,
     title: " ",
-    description: " ",
   },
   {
     id: 4,
     img: Image4,
     title: " ",
-    description: " ",
+  },
+  {
+    id: 5,
+    img: Image1,
+    title: "",
   },
 ];
 
@@ -61,6 +64,7 @@ const Home = () => {
                 >
                   <img
                     src={data.img}
+                    loading="lazy"
                     alt={data.title}
                     className="w-full h-full object-cover"
                   />
@@ -85,7 +89,7 @@ const Home = () => {
                   data-aos-once="true"
                   className="text-5xl sm:text-6xl lg:text-7xl font-bold drop-shadow-sm"
                 >
-                  School Name
+                  {TEXTS.SCHOOL_NAME}
                 </h1>
                 <p
                   data-aos="zoom-out"
@@ -93,8 +97,7 @@ const Home = () => {
                   data-aos-once="true"
                   className="text-lg opacity-90"
                 >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Alias, dolor.
+                  {TEXTS.SCHOOL_DESCRIPTION}
                 </p>
               </div>
             </div>

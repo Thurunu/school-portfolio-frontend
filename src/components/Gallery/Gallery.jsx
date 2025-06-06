@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import Img1 from "../../assets/gallery/gallery_image_1.jpg";
+
+import Img1 from "../../assets/gallery/album_1.jpg";
 
 const Gallery = ({ handleGalleryPopup }) => {
   const [galleryData, setGalleryData] = React.useState([]);
@@ -50,7 +51,7 @@ const Gallery = ({ handleGalleryPopup }) => {
                   className="space-y-4 cursor-pointer hover:bg-secondary p-4 rounded-lg transition-colors duration-800"
                 >
                   <img
-                    src={Img1}
+                    src={data.img || Img1}
                     alt={data.title}
                     className="h-[300px] w-[350px] object-cover rounded-md"
                   />
