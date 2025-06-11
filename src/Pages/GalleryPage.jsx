@@ -1,14 +1,14 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 
-import Img1 from "../../assets/gallery/album_1.jpg";
+import Img1 from "../assets/gallery/album_1.jpg";
 
 const Gallery = ({ handleGalleryPopup }) => {
-  const [galleryData, setGalleryData] = React.useState([]);
-  const [showAll, setShowAll] = React.useState(false);
+  const [galleryData, setGalleryData] = useState([]);
+  const [showAll, setShowAll] = useState(false);
 
   // Fetch image data from API
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(

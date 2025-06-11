@@ -1,9 +1,10 @@
 import React from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import testImg from "../../assets/banners/banner_img_1.jpg"; 
+import NewsFeed from "../../Pages/NewsFeedPage";
 
 
-const Popup = ({ newsPopup, setNewsPopup, selectedNews }) => {
+const NewsFeedPopup = ({ newsPopup, setNewsPopup, selectedNews }) => {
   return (
     <>
       {newsPopup && (
@@ -50,4 +51,4 @@ const Popup = ({ newsPopup, setNewsPopup, selectedNews }) => {
   );
 };
 
-export default Popup;
+export default NewsFeedPopup;

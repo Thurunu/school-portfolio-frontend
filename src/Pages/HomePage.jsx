@@ -1,10 +1,10 @@
 import React from "react";
-import { TEXTS } from "../Constants/text";
-import Image1 from "../../assets/home/home_image_1.jpg";
-import Image3 from "../../assets/home/home_image_3.jpg";
-import Image4 from "../../assets/home/home_image_4.jpg";
-import Image2 from "../../assets/home/home_image_2.jpg";
-import Image5 from "../../assets/home/home_image_5.webp";
+import { TEXTS } from "../components/Constants/text";
+import Image1 from "../assets/home/home_image_1.jpg";
+import Image3 from "../assets/home/home_image_3.jpg";
+import Image4 from "../assets/home/home_image_4.jpg";
+import Image2 from "../assets/home/home_image_2.jpg";
+import Image5 from "../assets/home/home_image_5.webp";
 import Slider from "react-slick";
 
 const ImageList = [

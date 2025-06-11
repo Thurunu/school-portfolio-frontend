@@ -1,6 +1,7 @@
 import React from "react";
-import Mission from "../../assets/about/mission.jpg";
-import Vision from "../../assets/about/vision.jpg";
+import Mission from "../assets/about/mission.jpg";
+
+import Vision from "../assets/about/vision.jpg";
 
 const About = () => {
   return (

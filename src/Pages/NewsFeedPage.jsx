@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
-import testImg from "../../assets/banners/banner_img_1.jpg";
-import { TEXTS } from "../Constants/text";
+import testImg from "../assets/banners/banner_img_1.jpg";
+import { TEXTS } from "../components/Constants/text";
 
 const NewsFeed = ({ handleNewsPopup }) => {
   const [newsData, setNewsData] = React.useState([]);
