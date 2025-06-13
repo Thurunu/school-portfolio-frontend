@@ -2,12 +2,13 @@ import React from 'react';
 
 const FormField = ({ field, value, onChange }) => {
   const commonClasses =
-    "w-full px-3 py-2 border rounded-lg bg-primary/50 text-white focus:border-primary focus:outline-none";
+    "w-full px-3 py-2 border rounded-lg bg-primary/40 text-white focus:border-primary focus:outline-none placeholder:text-white/70 transition-colors duration-200";
 
   const renderInput = () => {
     switch (field.type) {
       case "textarea":
         return (
+          // text fields 
           <textarea
             id={field.name}
             name={field.name}

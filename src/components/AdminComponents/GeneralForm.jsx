@@ -62,7 +62,8 @@ const GeneralForm = ({
         <div className="mt-6">
           <button
             type="submit"
-            className="w-full bg-primary text-white font-semibold px-4 py-3 rounded-lg hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
+            className="w-full bg-primary text-white font-semibold px-4 py-3 rounded-lg 
+            hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-primary transition-colors duration-200"
           >
             {submitButtonText}
           </button>

@@ -1,21 +1,27 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Img1 from "../assets/common/no_image.png";
+import Loading from "./LoadingComponent";
 
 const Gallery = ({ handleGalleryPopup }) => {
   const [galleryData, setGalleryData] = useState([]);
   const [showAll, setShowAll] = useState(false);
+    const [loading, setLoading] = useState(true);
+  
 
   // Fetch image data from API
   useEffect(() => {
     const fetchImages = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(
           "http://localhost:3000/api/gallery/first-img"
         );
         setGalleryData(response.data);
       } catch (error) {
         console.error("Error fetching gallery images:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchImages();
@@ -48,6 +54,15 @@ const Gallery = ({ handleGalleryPopup }) => {
           </div>
 
           {/* Body Section */}
+          {/* Show loading component while fetching */}
+          {loading ? (<Loading 
+              message="Loading albums..." 
+              size="medium" 
+              color="primary"
+              minHeight="400px"
+            /> ) : (
+              <>
+              
           <div>
             <div className={getGridClass(displayedImages.length)}>
               {displayedImages.map((data) => (
@@ -65,10 +80,12 @@ const Gallery = ({ handleGalleryPopup }) => {
                   />
                   <div>
                     <h3 className="font-semibold">{data.title}</h3>
-                    <p className="text-sm text-gray-600">
-                      {data.desc.split(" ").slice(0, 10).join(" ") +
-                        (data.desc.split(" ").length > 10 ? "..." : "")}
-                    </p>
+                    <p
+                        data-aos="fade-up"
+                        className="text-sm text-gray-600 tracking-wide leading-6 line-clamp-3 overflow-hidden"
+                      >
+                        {data.desc}
+                      </p>
                   </div>
                 </div>
               ))}
@@ -88,6 +105,8 @@ const Gallery = ({ handleGalleryPopup }) => {
               </div>
             )}
           </div>
+              </>
+            )}
         </div>
       </div>
     </section>
