@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-
-import Img1 from "../assets/gallery/album_1.jpg";
+import Img1 from "../assets/common/no_image.png";
 
 const Gallery = ({ handleGalleryPopup }) => {
   const [galleryData, setGalleryData] = useState([]);
@@ -25,6 +24,15 @@ const Gallery = ({ handleGalleryPopup }) => {
   // Determine which images to display
   const displayedImages = showAll ? galleryData : galleryData.slice(0, 5);
 
+  // Dynamic grid class based on number of items
+  const getGridClass = (itemCount) => {
+    if (itemCount === 1) return "grid grid-cols-1 place-items-center gap-5";
+    if (itemCount === 2) return "grid grid-cols-1 sm:grid-cols-2 place-items-center gap-5 max-w-2xl mx-auto";
+    if (itemCount === 3) return "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-items-center gap-5 max-w-4xl mx-auto";
+    if (itemCount === 4) return "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center gap-5 max-w-5xl mx-auto";
+    return "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 place-items-center gap-5";
+  };
+
   return (
     <section id="gallery">
       <div className="mt-14 mb-12">
@@ -41,19 +49,19 @@ const Gallery = ({ handleGalleryPopup }) => {
 
           {/* Body Section */}
           <div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 place-items-center gap-5">
+            <div className={getGridClass(displayedImages.length)}>
               {displayedImages.map((data) => (
                 <div
                   data-aos="fade-up"
                   data-aos-delay={data.aosDelay}
                   key={data.id}
                   onClick={() => handleGalleryPopup(data.id)}
-                  className="space-y-4 cursor-pointer hover:bg-secondary p-4 rounded-lg transition-colors duration-800"
+                  className="space-y-4 cursor-pointer hover:bg-secondary p-4 rounded-lg transition-colors duration-800 w-full max-w-[350px]"
                 >
                   <img
                     src={data.img || Img1}
                     alt={data.title}
-                    className="h-[300px] w-[350px] object-cover rounded-md"
+                    className="h-[300px] w-full object-cover rounded-md"
                   />
                   <div>
                     <h3 className="font-semibold">{data.title}</h3>

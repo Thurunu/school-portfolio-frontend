@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import SubjectCard from "./SubjectCard";
 
 const GradeSubjects = ({ gradeData, onBack }) => {
   const [gradeBooks, setGradeBooks] = useState(null);
@@ -39,38 +40,11 @@ const GradeSubjects = ({ gradeData, onBack }) => {
           </button>
         </div>
 
-        {/* Subject Cards */}
+        {/* Subject Cards Grid */}
         <div className="flex justify-center">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center max-w-fit">
             {gradeBooks.map((book) => (
-              <div
-                key={book.book_id}
-                className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 flex flex-col h-full w-full max-w-xs"
-              >
-                <div className="text-center flex-grow">
-                  <div className="w-20 h-18 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3 overflow-hidden">
-                    <img
-                      src={book.book_img}
-                      className="w-full h-full object-cover"
-                      alt={book.book_name}
-                    />
-                  </div>
-                  <h3 className="font-semibold text-gray-800 text-sm leading-tight">
-                    {book.book_name}
-                  </h3>
-                </div>
-                <div className="flex justify-center mt-4">
-                  <a
-                    href={book.book_download_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-primary hover:bg-secondary text-white px-4 py-2 rounded-lg transition-colors duration-200 text-sm font-medium w-full text-center block"
-                    download
-                  >
-                    Download ↗
-                  </a>
-                </div>
-              </div>
+              <SubjectCard key={book.book_id} book={book} />
             ))}
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import testImg from "../assets/banners/banner_img_1.jpg";
+import testImg from "../assets/common/no_image.png";
 import { TEXTS } from "../components/Constants/text";
 
 const NewsFeed = ({ handleNewsPopup }) => {

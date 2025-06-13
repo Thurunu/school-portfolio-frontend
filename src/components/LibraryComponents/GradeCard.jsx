@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import GradeSubjects from "./GradeSubjects";
 
-const GradeCard = () => {
+const  GradeCard = () => {
   const [grades, setGrades] = useState([]);
   const [selectedGrade, setSelectedGrade] = useState(null);
   useEffect(() => {

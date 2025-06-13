@@ -42,7 +42,7 @@ const EventForm = () => {
 
   const handleEventSubmit = async (formData) => {
     console.log("Event Form Data:", formData);
- const url = "http://localhost:3001/api/events/create";
+ const url = "http://localhost:3000/api/events/create";
     
     const payload = {};
   eventFeedDataModel.forEach(({ frontendKey, backendKey }) => {

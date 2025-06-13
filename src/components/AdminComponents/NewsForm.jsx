@@ -37,7 +37,7 @@ const newsFeedDataModel = [
 
   const handleNewsSubmit = async (formData) => {
     console.log('News Form Data:', formData);
-    const url = "http://localhost:3001/api/news-feed/create";
+    const url = "http://localhost:3000/api/news-feed/create";
     
     const payload = {};
   newsFeedDataModel.forEach(({ frontendKey, backendKey }) => {

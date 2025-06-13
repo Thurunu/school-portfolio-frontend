@@ -28,7 +28,7 @@ const GalleryForm = () => {
 
   const handleGallerySubmit = async (formData) => {
     // console.log("Gallery Form Data:", formData);
-    const url = "http://localhost:3001/api/gallery/upload";
+    const url = "http://localhost:3000/api/gallery/upload";
 
     const payload = {};
     galleryFeedDataModel.forEach(({ frontendKey, backendKey }) => {
