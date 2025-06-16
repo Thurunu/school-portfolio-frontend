@@ -1,90 +1,92 @@
 import React, { useState } from "react";
-import GeneralForm from "./GeneralForm";
 import axios from "axios";
+import GeneralForm from "./GeneralForm";
 import Popup from "./GeneralFormComponents/Popup";
 import { usePopup } from "./hooks/usePopup";
 
-const NewsForm = () => {
+const NewsForm = ({ initialData, onSubmit, submitButtonText = "Create News" }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { popupConfig, showSuccess, showError, hidePopup } = usePopup();
   const newsFields = [
     {
-      name: "newsHeadline",
-      label: "Headline",
+      name: "newsTitle",
+      label: "News Title",
       type: "text",
-      placeholder: "Enter news headline",
+      placeholder: "Enter news title",
       required: true,
     },
     {
       name: "newsDescription",
-      label: "News",
+      label: "News Description",
       type: "textarea",
-      placeholder: "Write news content",
-      rows: 8,
-      required: true,
-    },
-    {
-      name: "newsDate",
-      label: "News Date",
-      type: "date",
+      placeholder: "Enter news description",
+      rows: 4,
       required: true,
     },
   ];
 
   const newsFeedDataModel = [
-    { frontendKey: "newsHeadline", backendKey: "title" },
+    { frontendKey: "newsTitle", backendKey: "title" },
     { frontendKey: "newsDescription", backendKey: "desc" },
     { frontendKey: "imageBase64", backendKey: "img" },
   ];
 
-  const handleNewsSubmit = async (formData, resetForm) => {
-    // console.log('News Form Data:', formData);
-    const url = "http://localhost:3000/api/news-feed/create";
-    setIsSubmitting(true);
+  const handleNewsSubmit = async (formData) => {
+    if (onSubmit) {
+      // If onSubmit is provided (for update), use it
+      onSubmit(formData);
+      return;
+    }
 
+    // Otherwise, handle create operation
+    const url = "http://localhost:3000/api/news-feed/create";
     const payload = {};
     newsFeedDataModel.forEach(({ frontendKey, backendKey }) => {
-      console.log(
-        "Mapping correct or not: ",
-        formData.hasOwnProperty(frontendKey)
-      );
       if (formData.hasOwnProperty(frontendKey)) {
         payload[backendKey] = formData[frontendKey];
       }
     });
 
     try {
+      setIsSubmitting(true);
       const response = await axios.post(url, payload);
-      // console.log("Success:", response.data);
-
-      // Show success popup and reset form
       showSuccess(
         "News Created Successfully!",
-        "Your news article has been published successfully."
+        "Your news has been created successfully."
       );
-      resetForm();
     } catch (error) {
       console.error("Error submitting form:", error);
-      // Show error popup
       showError(
         "Failed to Create News",
-        "There was an error publishing your news article. Please try again."
+        "There was an error publishing your news. Please try again."
       );
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  // Transform initialData to match form field names
+  const getInitialFormData = () => {
+    if (!initialData) return {};
+
+    return {
+      newsTitle: initialData.title || "",
+      newsDescription: initialData.desc || "",
+      imageBase64: initialData.img || "",
+    };
+  };
+
   return (
     <>
       <GeneralForm
-        title="Create News"
+        title={submitButtonText}
         fields={newsFields}
         onSubmit={handleNewsSubmit}
-        submitButtonText={isSubmitting ? "Creating..." : "Create News"}
-        showDateTime={false}
+        submitButtonText={submitButtonText}
         showImageUpload={true}
+        initialData={getInitialFormData()}
       />
+
       <Popup
         isVisible={popupConfig.isVisible}
         onClose={hidePopup}

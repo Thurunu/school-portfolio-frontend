@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormData } from "./hooks/useForm";
 import { useImageUpload } from "./hooks/useImageUpload";
 import FormField from "./GeneralFormComponents/FormField";
@@ -13,6 +13,7 @@ const GeneralForm = ({
   showDateTime = false,
   showImageUpload = true,
   allowMultipleImages = false,
+  initialData = {},
 }) => {
   const { formData, setFormData, handleInputChange, resetForm } = useFormData(
     fields,
@@ -24,6 +25,13 @@ const GeneralForm = ({
     allowMultipleImages,
     setFormData
   );
+
+  // Set initial form data when component mounts or initialData changes
+  useEffect(() => {
+    if (Object.keys(initialData).length > 0) {
+      setFormData(initialData);
+    }
+  }, [initialData, setFormData]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

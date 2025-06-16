@@ -22,15 +22,15 @@ const About = () => {
         data-aos="zoom-in"
         className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-16">
           {/* Text */}
-          <div>
+            <div>
             <h2 className="text-2xl font-bold text-primary mb-4">Our Mission</h2>
             <p className="text-gray-600 leading-relaxed">
               At our core, we are dedicated to nurturing a vibrant learning environment where every student is empowered to discover their unique strengths and passions. Our mission is to inspire curiosity, foster creativity, and cultivate a lifelong love of learning. Through innovative teaching, supportive mentorship, and a commitment to inclusivity, we strive to equip our students with the knowledge, skills, and values they need to thrive in an ever-changing world.
-            </p>
-          </div>
+                  </p>
+                </div>
           {/* Image */}
-          <div>
-            <img
+            <div>
+              <img
               src={Mission}
               alt="Our Mission"
               className="w-full rounded-lg shadow-2xl object-cover h-[300px] border-4 border-primary transition-transform duration-300 hover:scale-105"
@@ -39,7 +39,7 @@ const About = () => {
               }}
             />
           </div>
-          </div>
+        </div>
 
           {/* Vision Section */}
         <div 
@@ -47,8 +47,8 @@ const About = () => {
         className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           {/* Image */}
           <div className="order-2 md:order-1">
-            <img
-              src={Vision}
+              <img
+                src={Vision}
               alt="Our Vission"
               className="w-full rounded-lg shadow-2xl object-cover h-[300px] border-4 border-primary transition-transform duration-300 hover:scale-105"
               style={{
@@ -66,8 +66,8 @@ const About = () => {
             </p>
           </div>
         </div>
+        </div>
       </div>
-    </div>
     </section>
   );
 };

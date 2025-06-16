@@ -4,83 +4,87 @@ import GeneralForm from "./GeneralForm";
 import Popup from "./GeneralFormComponents/Popup";
 import { usePopup } from "./hooks/usePopup";
 
-const GalleryForm = () => {
+const GalleryForm = ({ initialData, onSubmit, submitButtonText = "Create Gallery" }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { popupConfig, showSuccess, showError, hidePopup } = usePopup();
-  const GalleryFields = [
+  const galleryFields = [
     {
-      name: "galleryName",
-      label: "Gallery Name",
+      name: "galleryTitle",
+      label: "Gallery Title",
       type: "text",
-      placeholder: "Enter gallery name",
+      placeholder: "Enter gallery title",
       required: true,
     },
     {
       name: "galleryDescription",
       label: "Gallery Description",
       type: "textarea",
-      placeholder: "Write gallery description",
-      rows: 8,
+      placeholder: "Enter gallery description",
+      rows: 4,
       required: true,
     },
   ];
 
-  const galleryFeedDataModel = [
-    { frontendKey: "galleryName", backendKey: "title" },
+  const galleryDataModel = [
+    { frontendKey: "galleryTitle", backendKey: "title" },
     { frontendKey: "galleryDescription", backendKey: "desc" },
+    { frontendKey: "imageBase64", backendKey: "img" },
   ];
 
   const handleGallerySubmit = async (formData) => {
-    // console.log("Gallery Form Data:", formData);
-    const url = "http://localhost:3000/api/gallery/upload";
+    if (onSubmit) {
+      // If onSubmit is provided (for update), use it
+      onSubmit(formData);
+      return;
+    }
 
+    // Otherwise, handle create operation
+    const url = "http://localhost:3000/api/gallery/create";
     const payload = {};
-    galleryFeedDataModel.forEach(({ frontendKey, backendKey }) => {
-      // console.log(
-      //   "Mapping correct or not: ",
-      //   formData.hasOwnProperty(frontendKey)
-      // );
-      // console.log("Mapping: ", frontendKey, " to ", backendKey);
+    galleryDataModel.forEach(({ frontendKey, backendKey }) => {
       if (formData.hasOwnProperty(frontendKey)) {
         payload[backendKey] = formData[frontendKey];
       }
-      // console.log("Payload after mapping: ", payload);
     });
 
-    if (formData.imagesBase64 && Array.isArray(formData.imagesBase64)) {
-      payload.imagePaths = formData.imagesBase64;
-    }
-
     try {
+      setIsSubmitting(true);
       const response = await axios.post(url, payload);
-      // console.log("Success:", response.data);
-
       showSuccess(
         "Gallery Created Successfully!",
         "Your gallery has been created successfully."
       );
-      resetForm();
     } catch (error) {
       console.error("Error submitting form:", error);
       showError(
         "Failed to Create Gallery",
-        "There was an error publishing your gallery. Please try again."
+        "There was an error creating your gallery. Please try again."
       );
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  // Transform initialData to match form field names
+  const getInitialFormData = () => {
+    if (!initialData) return {};
+
+    return {
+      galleryTitle: initialData.title || "",
+      galleryDescription: initialData.desc || "",
+      imageBase64: initialData.img || "",
+    };
+  };
+
   return (
     <>
       <GeneralForm
-        title="Create Gallery"
-        fields={GalleryFields}
+        title={submitButtonText}
+        fields={galleryFields}
         onSubmit={handleGallerySubmit}
-        submitButtonText="Create Gallery"
-        showDateTime={false}
+        submitButtonText={submitButtonText}
         showImageUpload={true}
-        allowMultipleImages={true}
+        initialData={getInitialFormData()}
       />
 
       <Popup

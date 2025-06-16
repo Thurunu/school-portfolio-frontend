@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import GeneralForm from "./GeneralForm";
 import Popup from "./GeneralFormComponents/Popup";
 import { usePopup } from "./hooks/usePopup";
 
-const EventForm = () => {
+const EventForm = ({ initialData, onSubmit, submitButtonText = "Create Event" }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { popupConfig, showSuccess, showError, hidePopup } = usePopup();
   const eventFields = [
@@ -45,26 +45,28 @@ const EventForm = () => {
   ];
 
   const handleEventSubmit = async (formData) => {
-    // console.log("Event Form Data:", formData);
-    const url = "http://localhost:3000/api/events/create";
+    if (onSubmit) {
+      // If onSubmit is provided (for update), use it
+      onSubmit(formData);
+      return;
+    }
 
+    // Otherwise, handle create operation
+    const url = "http://localhost:3000/api/events/create";
     const payload = {};
     eventFeedDataModel.forEach(({ frontendKey, backendKey }) => {
-      // console.log("Mapping correct or not: ", formData.hasOwnProperty(frontendKey))
       if (formData.hasOwnProperty(frontendKey)) {
         payload[backendKey] = formData[frontendKey];
       }
     });
 
     try {
+      setIsSubmitting(true);
       const response = await axios.post(url, payload);
-      // console.log("Success:", response.data);
-
       showSuccess(
         "Event Created Successfully!",
         "Your event has been created successfully."
       );
-      resetForm();
     } catch (error) {
       console.error("Error submitting form:", error);
       showError(
@@ -76,15 +78,29 @@ const EventForm = () => {
     }
   };
 
+  // Transform initialData to match form field names
+  const getInitialFormData = () => {
+    if (!initialData) return {};
+
+    return {
+      eventName: initialData.title || "",
+      eventDescription: initialData.desc || "",
+      eventDate: initialData.date ? new Date(initialData.date).toISOString().split('T')[0] : "",
+      eventTime: initialData.date ? new Date(initialData.date).toTimeString().slice(0, 5) : "",
+      imageBase64: initialData.img || "",
+    };
+  };
+
   return (
     <>
       <GeneralForm
-        title="Create Event"
+        title={submitButtonText}
         fields={eventFields}
         onSubmit={handleEventSubmit}
-        submitButtonText="Create Event"
+        submitButtonText={submitButtonText}
         showDateTime={true}
         showImageUpload={true}
+        initialData={getInitialFormData()}
       />
 
       <Popup

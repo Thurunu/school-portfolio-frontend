@@ -5,9 +5,15 @@ import NewsForm from "../components/AdminComponents/NewsForm";
 import LibraryForm from "../components/AdminComponents/LibraryForm";
 import BooksForm from "../components/AdminComponents/BooksForm";
 import GalleryForm from "../components/AdminComponents/GalleryForm";
+import EventList from "../components/AdminComponents/EventList";
+import NewsList from "../components/AdminComponents/NewsList";
+import GalleryList from "../components/AdminComponents/GalleryList";
+import LibraryList from "../components/AdminComponents/LibraryList";
+import BookList from "../components/AdminComponents/BookList";
 
 const AdminPage = () => {
   const [activeForm, setActiveForm] = useState("news");
+  const [activeOperation, setActiveOperation] = useState("create"); // create, update, delete
 
   const menuItems = [
     { id: "news", label: "News Management", icon: "📰" },
@@ -17,84 +23,94 @@ const AdminPage = () => {
     { id: "gallery", label: "Gallery Management", icon: "🖼️" },
   ];
 
+  const operations = [
+    { id: "create", label: "Create" },
+    { id: "update", label: "Update" },
+    { id: "delete", label: "Delete" },
+  ];
+
   const renderActiveForm = () => {
-    switch (activeForm) {
-      case "news":
-        return <NewsForm />;
-      case "events":
-        return <EventForm />;
-      case "library":
-        return <LibraryForm />;
-      case "books":
-        return <BooksForm />;
-      case "gallery":
-        return <GalleryForm />;
-      default:
-        return <NewsForm />;
+    if (activeOperation === "create") {
+      switch (activeForm) {
+        case "news":
+          return <NewsForm />;
+        case "events":
+          return <EventForm />;
+        case "library":
+          return <LibraryForm />;
+        case "books":
+          return <BooksForm />;
+        case "gallery":
+          return <GalleryForm />;
+        default:
+          return <NewsForm />;
+      }
+    } else if (activeOperation === "update" || activeOperation === "delete") {
+      switch (activeForm) {
+        case "news":
+          return <NewsList operation={activeOperation} />;
+        case "events":
+          return <EventList operation={activeOperation} />;
+        case "gallery":
+          return <GalleryList operation={activeOperation} />;
+        case "library":
+          return <LibraryList operation={activeOperation} />;
+        case "books":
+          return <BookList operation={activeOperation} />;
+        default:
+          return <NewsList operation={activeOperation} />;
+      }
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Header */}
-      <div className="bg-primary py-4 shadow-md fixed top-0 left-0 w-full z-50" >
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          <Header />
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="pt-20 flex min-h-screen">
-        {/* Sidebar */}
-        <div className="w-80 bg-white shadow-lg border-r border-gray-200 fixed left-0 top-20 bottom-0 overflow-y-auto">
-          {/* Sidebar Header */}
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-2xl font-bold text-primary" >
-              Admin Panel
-            </h2>
-          </div>
-
-          {/* Navigation Menu */}
-          <nav className="p-4">
-            <ul className="space-y-2">
-              {menuItems.map((item) => (
-                <li key={item.id}>
-                  <button
-                    onClick={() => setActiveForm(item.id)}
-                    className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 flex items-center gap-3 ${
-                      activeForm === item.id
-                        ? "text-white shadow-md transform scale-105"
-                        : "bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-primary"
-                    }`}
-                    style={{
-                      backgroundColor: activeForm === item.id ? "#7e0102" : undefined,
-                    }}
-                  >
-                    <span className="text-xl">{item.icon}</span>
-                    <span className="font-medium">{item.label}</span>
-                  </button>
-                </li>
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      <div className="container mx-auto px-4 py-8">
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          {/* Operation Selection */}
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold mb-4">Select Operation</h2>
+            <div className="flex gap-4">
+              {operations.map((op) => (
+                <button
+                  key={op.id}
+                  onClick={() => setActiveOperation(op.id)}
+                  className={`px-4 py-2 rounded ${
+                    activeOperation === op.id
+                      ? "bg-primary text-white"
+                      : "bg-gray-200 hover:bg-gray-300"
+                  }`}
+                >
+                  {op.label}
+                </button>
               ))}
-            </ul>
-          </nav>
-        </div>
-
-        {/* Main Content Area */}
-        <div className="flex-1 ml-80">
-          <div className="p-8">
-            {/* Active Form Header */}
-            <div className="mb-6">
-              <h3 className="text-2xl font-semibold text-gray-800">
-                {menuItems.find(item => item.id === activeForm)?.label}
-              </h3>
-              <div className="w-20 h-1 mt-2 rounded bg-primary"></div>
-            </div>
-
-            {/* Form Container */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              {renderActiveForm()}
             </div>
           </div>
+
+          {/* Content Type Selection */}
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold mb-4">Select Content Type</h2>
+            <div className="flex flex-wrap gap-4">
+              {menuItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setActiveForm(item.id)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded ${
+                    activeForm === item.id
+                      ? "bg-primary text-white"
+                      : "bg-gray-200 hover:bg-gray-300"
+                  }`}
+                >
+                  <span>{item.icon}</span>
+                  <span>{item.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Active Form/List */}
+          <div className="mt-8">{renderActiveForm()}</div>
         </div>
       </div>
     </div>

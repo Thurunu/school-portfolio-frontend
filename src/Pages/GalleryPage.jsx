@@ -2,12 +2,13 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Img1 from "../assets/common/no_image.png";
 import Loading from "./LoadingComponent";
+import { dummyGallery } from "../components/Constants/dummyGallery";
 
 const Gallery = ({ handleGalleryPopup }) => {
   const [galleryData, setGalleryData] = useState([]);
   const [showAll, setShowAll] = useState(false);
-    const [loading, setLoading] = useState(true);
-  
+  const [loading, setLoading] = useState(true);
+  const [isUsingDummyData, setIsUsingDummyData] = useState(false);
 
   // Fetch image data from API
   useEffect(() => {
@@ -18,14 +19,32 @@ const Gallery = ({ handleGalleryPopup }) => {
           "http://localhost:3000/api/gallery/first-img"
         );
         setGalleryData(response.data);
+        setIsUsingDummyData(false);
       } catch (error) {
         console.error("Error fetching gallery images:", error);
+        setGalleryData(dummyGallery);
+        setIsUsingDummyData(true);
       } finally {
         setLoading(false);
       }
     };
     fetchImages();
-  }, []);
+
+    // Set up polling to check for backend availability
+    const pollInterval = setInterval(async () => {
+      if (isUsingDummyData) {
+        try {
+          const response = await axios.get("http://localhost:3000/api/gallery/first-img");
+          setGalleryData(response.data);
+          setIsUsingDummyData(false);
+        } catch (error) {
+          // Backend still down, keep using dummy data
+        }
+      }
+    }, 30000); // Check every 30 seconds
+
+    return () => clearInterval(pollInterval);
+  }, [isUsingDummyData]);
 
   // Determine which images to display
   const displayedImages = showAll ? galleryData : galleryData.slice(0, 5);

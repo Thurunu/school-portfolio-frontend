@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "./LoadingComponent";
+import { dummyEvents } from "../components/Constants/dummyEvents";
 
 const Events = () => {
   const [eventsData, setEventsData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isUsingDummyData, setIsUsingDummyData] = useState(false);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -15,14 +17,35 @@ const Events = () => {
           (a, b) => new Date(a.date) - new Date(b.date)
         );
         setEventsData(sortedData);
+        setIsUsingDummyData(false);
       } catch (error) {
         console.error("Error fetching events data:", error);
+        setEventsData(dummyEvents);
+        setIsUsingDummyData(true);
       } finally {
         setLoading(false);
       }
     };
     fetchEvents();
-  }, []);
+
+    // Set up polling to check for backend availability
+    const pollInterval = setInterval(async () => {
+      if (isUsingDummyData) {
+        try {
+          const response = await axios.get("http://localhost:3000/api/events");
+          const sortedData = response.data.sort(
+            (a, b) => new Date(a.date) - new Date(b.date)
+          );
+          setEventsData(sortedData);
+          setIsUsingDummyData(false);
+        } catch (error) {
+          // Backend still down, keep using dummy data
+        }
+      }
+    }, 30000); // Check every 30 seconds
+
+    return () => clearInterval(pollInterval);
+  }, [isUsingDummyData]);
 
   return (
     <section id="events">

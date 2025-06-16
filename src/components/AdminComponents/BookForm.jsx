@@ -4,32 +4,27 @@ import GeneralForm from "./GeneralForm";
 import Popup from "./GeneralFormComponents/Popup";
 import { usePopup } from "./hooks/usePopup";
 
-const LibraryForm = ({ initialData, onSubmit, submitButtonText = "Create Library Category" }) => {
+const BookForm = ({ initialData, onSubmit, submitButtonText = "Create Book" }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { popupConfig, showSuccess, showError, hidePopup } = usePopup();
-  const libraryFields = [
+  const bookFields = [
     {
-      name: "librarycategory",
-      label: "Library Category",
+      name: "bookName",
+      label: "Book Name",
       type: "text",
-      placeholder: "Enter library category",
+      placeholder: "Enter book name",
       required: true,
     },
     {
-      name: "category_id",
-      label: "Category ID",
+      name: "downloadUrl",
+      label: "Download URL",
       type: "text",
-      placeholder: "Enter category id",
+      placeholder: "Enter download URL",
       required: true,
     },
   ];
 
-  const libraryDataModel = [
-    { frontendKey: "librarycategory", backendKey: "category" },
-    { frontendKey: "category_id", backendKey: "category_id" },
-  ];
-
-  const handleLibrarySubmit = async (formData) => {
+  const handleBookSubmit = async (formData) => {
     if (onSubmit) {
       // If onSubmit is provided (for update), use it
       onSubmit(formData);
@@ -37,26 +32,25 @@ const LibraryForm = ({ initialData, onSubmit, submitButtonText = "Create Library
     }
 
     // Otherwise, handle create operation
-    const url = "http://localhost:3000/api/library/new-category";
-    const payload = {};
-    libraryDataModel.forEach(({ frontendKey, backendKey }) => {
-      if (formData.hasOwnProperty(frontendKey)) {
-        payload[backendKey] = formData[frontendKey];
-      }
-    });
+    const url = "http://localhost:3000/api/library/create-book";
+    const payload = {
+      book_name: formData.bookName,
+      book_img: formData.imageBase64,
+      book_download_url: formData.downloadUrl
+    };
 
     try {
       setIsSubmitting(true);
       const response = await axios.post(url, payload);
       showSuccess(
-        "Category Created Successfully!",
-        "Your library category has been created successfully."
+        "Book Created Successfully!",
+        "Your book has been created successfully."
       );
     } catch (error) {
       console.error("Error submitting form:", error);
       showError(
-        "Failed to Create Category",
-        "There was an error creating the library category. Please try again."
+        "Failed to Create Book",
+        "There was an error creating the book. Please try again."
       );
     } finally {
       setIsSubmitting(false);
@@ -68,8 +62,9 @@ const LibraryForm = ({ initialData, onSubmit, submitButtonText = "Create Library
     if (!initialData) return {};
 
     return {
-      librarycategory: initialData.category || "",
-      category_id: initialData.category_id || "",
+      bookName: initialData.book_name || "",
+      downloadUrl: initialData.book_download_url || "",
+      imageBase64: initialData.book_img || "",
     };
   };
 
@@ -77,10 +72,10 @@ const LibraryForm = ({ initialData, onSubmit, submitButtonText = "Create Library
     <>
       <GeneralForm
         title={submitButtonText}
-        fields={libraryFields}
-        onSubmit={handleLibrarySubmit}
+        fields={bookFields}
+        onSubmit={handleBookSubmit}
         submitButtonText={submitButtonText}
-        showImageUpload={false}
+        showImageUpload={true}
         initialData={getInitialFormData()}
       />
 
@@ -98,4 +93,4 @@ const LibraryForm = ({ initialData, onSubmit, submitButtonText = "Create Library
   );
 };
 
-export default LibraryForm;
+export default BookForm; 

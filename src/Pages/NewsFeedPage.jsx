@@ -3,11 +3,13 @@ import axios from "axios";
 import testImg from "../assets/common/no_image.png";
 import { TEXTS } from "../components/Constants/text";
 import Loading from "./LoadingComponent"; // Import the reusable Loading component
+import { dummyNews } from "../components/Constants/dummyEvents";
 
 const NewsFeed = ({ handleNewsPopup }) => {
   const [newsData, setNewsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAll, setShowAll] = useState(false);
+  const [isUsingDummyData, setIsUsingDummyData] = useState(false);
 
   // Fetch data from api
   useEffect(() => {
@@ -17,14 +19,32 @@ const NewsFeed = ({ handleNewsPopup }) => {
         const response = await axios.get("http://localhost:3000/api/news-feed");
         // console.log(response.data[0].bannerImg);
         setNewsData(response.data);
+        setIsUsingDummyData(false);
       } catch (error) {
         console.error("Error occured while fetching news data: ", error);
+        setNewsData(dummyNews);
+        setIsUsingDummyData(true);
       } finally {
         setLoading(false);
       }
     };
     fetchNews();
-  }, []);
+
+    // Set up polling to check for backend availability
+    const pollInterval = setInterval(async () => {
+      if (isUsingDummyData) {
+        try {
+          const response = await axios.get("http://localhost:3000/api/news-feed");
+          setNewsData(response.data);
+          setIsUsingDummyData(false);
+        } catch (error) {
+          // Backend still down, keep using dummy data
+        }
+      }
+    }, 30000); // Check every 30 seconds
+
+    return () => clearInterval(pollInterval);
+  }, [isUsingDummyData]);
 
   // Show only first 2 news items by default
   const displayedNews = showAll ? newsData : newsData.slice(0, 2);
@@ -114,30 +134,16 @@ const NewsFeed = ({ handleNewsPopup }) => {
                 ))}
               </div>
 
-              {/* See More Button */}
-              {!showAll && newsData.length > 2 && (
+              {/* Show More/Less Button */}
+              {newsData.length > 2 && (
                 <div className="text-center mt-12">
                   <button
                     data-aos="fade-up"
                     className="bg-primary text-white px-6 py-3 rounded hover:bg-secondary hover:text-black transition-colors duration-300 cursor-pointer"
                     type="button"
-                    onClick={() => setShowAll(true)}
+                    onClick={() => setShowAll(!showAll)}
                   >
-                    {TEXTS.SEEMORE_BTN}
-                  </button>
-                </div>
-              )}
-
-              {/* Show Less Button */}
-              {showAll && newsData.length > 2 && (
-                <div className="text-center mt-12">
-                  <button
-                    data-aos="fade-up"
-                    className="bg-primary text-white px-6 py-3 rounded hover:bg-secondary hover:text-black transition-colors duration-300 cursor-pointer"
-                    type="button"
-                    onClick={() => setShowAll(false)}
-                  >
-                    Show Less
+                    {showAll ? "Show Less" : "Show More"}
                   </button>
                 </div>
               )}
