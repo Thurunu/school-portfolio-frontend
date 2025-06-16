@@ -1,32 +1,38 @@
+import centuryParadeImg from '../../assets/home/home_image_5.webp';
+import centuryNightImg from '../../assets/gallery/album_2.jpg';
+import ictDayImg from '../../assets/gallery/album_3.jpg';
+import annualSportMeetImg from '../../assets/gallery/album_4.webp';
+import sportMeetImg from '../../assets/gallery/album_6.webp';
+
 export const dummyGallery = [
   {
     id: "dummy-gallery-1",
-    title: "Campus Life 2025",
-    desc: "A collection of vibrant moments capturing the essence of campus life, from classroom activities to outdoor events.",
-    img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=350&h=300&fit=crop"
+    title: "Celebrating a century of excellence parade",
+    desc: "The 100 Years Memorable Walk of Pitadeniya Maha Vidyalaya was a beautiful tribute to our legacy, unity, and pride.",
+    img: centuryParadeImg
   },
   {
     id: "dummy-gallery-2",
-    title: "Science Fair Highlights",
-    desc: "Showcasing innovative projects and experiments from our annual science fair, featuring student creativity and scientific exploration.",
-    img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=350&h=300&fit=crop"
+    title: "Celebrating a century of excellence night",
+    desc: "Watching the night sky light up with vibrant colors! There's nothing like fireworks to bring joy and a sense of celebration. 🎆 Let's cherish these beautiful moments together under the Pitiyadeniya Maha Vidyalaya",
+    img: centuryNightImg
   },
   {
     id: "dummy-gallery-3",
-    title: "Sports Day 2025",
-    desc: "Action-packed moments from our annual sports day, featuring various athletic competitions and team spirit.",
-    img: "https://images.unsplash.com/photo-1526232761682-d26e03ac148e?w=350&h=300&fit=crop"
+    title: "ICT Day 2024",
+    desc: "Celebrating ICT Day at Pitadeniya Maha Vidyalaya! 🌟 Our talented students are diving into the world of technology, exploring new possibilities and expanding their horizons. Together, we're building a brighter future! 💻🎉",
+    img: ictDayImg
   },
   {
     id: "dummy-gallery-4",
-    title: "Art Exhibition",
-    desc: "A visual journey through our students' artistic expressions, featuring paintings, sculptures, and digital art.",
-    img: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=350&h=300&fit=crop"
+    title: "වාර්ෂිකව පවත්වනු ලබන සර්වරාත්‍රික පරිත්‍රාණ ධර්ම සජ්ඣායනා පින්කම",
+    desc: "Pitadeniya Maha Vidyalaya's Annual Sermon!",
+    img: annualSportMeetImg
   },
   {
     id: "dummy-gallery-5",
-    title: "Cultural Festival",
-    desc: "Celebrating diversity through music, dance, and cultural performances from around the world.",
-    img: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=350&h=300&fit=crop"
+    title: "Sport Meet 2024",
+    desc: "Celebrating the spirit of sports at Pitadeniya Maha Vidyalaya! 💪✨ Our talented athletes came together for an unforgettable school sports meet, showcasing teamwork and camaraderie. Proud to be part of this energetic group that shines bright both on and off the field!",
+    img: sportMeetImg
   }
 ]; 
