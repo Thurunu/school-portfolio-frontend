@@ -1,5 +1,3 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
 name: Node.js CI
 
@@ -73,4 +71,24 @@ jobs:
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
           timeout: '5m'
-          exit-code: '1'
+          output: 'trivy-report.txt'
+          exit-code: '0'
+
+  check-vulnerabilities-create-issue:
+    runs-on: ubuntu-latest
+    needs: trivy-scan
+
+    steps:
+      - name: read trvy report
+        run: |
+          if grep -q "CRITICAL\|HIGH" trivy-report.txt; then
+            echo "Vulnerabilities found, creating github issue..."
+            gh issue create  \
+              --title "Trivy Scan: Vulnerabilities detected" \
+              --body "$(cat trivy-results.txt)" \
+              --label "security" 
+          else
+            echo "No critical or high vulnerabilities found ✅"
+          fi
+
+
