@@ -72,7 +72,6 @@ jobs:
           severity: 'CRITICAL,HIGH'
           timeout: '5m'
           output: 'trivy-report.txt'
-          exit-code: '0'
       - name: read trvy report
         run: |
           if grep -q "CRITICAL\|HIGH" trivy-report.txt; then
