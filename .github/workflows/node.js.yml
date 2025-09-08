@@ -7,6 +7,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   compile:
 
@@ -72,7 +76,7 @@ jobs:
           severity: 'CRITICAL,HIGH'
           timeout: '5m'
           output: 'trivy-report.txt'
-      - name: read trvy report
+      - name: read trivy report
         run: |
           if grep -q "CRITICAL\|HIGH" trivy-report.txt; then
             echo "Vulnerabilities found, creating github issue..."
