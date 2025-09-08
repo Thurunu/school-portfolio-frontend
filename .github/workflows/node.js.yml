@@ -73,12 +73,6 @@ jobs:
           timeout: '5m'
           output: 'trivy-report.txt'
           exit-code: '0'
-
-  check-vulnerabilities-create-issue:
-    runs-on: ubuntu-latest
-    needs: trivy-scan
-
-    steps:
       - name: read trvy report
         run: |
           if grep -q "CRITICAL\|HIGH" trivy-report.txt; then
