@@ -13,12 +13,6 @@ jobs:
   compile:
 
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x, 22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -29,4 +23,6 @@ jobs:
         node-version: '22'
         
     - name: Frontend Start
-      run: npm run dev
+      run: |
+        npm install
+        npm run dev
