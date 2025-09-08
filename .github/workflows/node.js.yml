@@ -64,12 +64,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Trivy scan
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@0.28.0
         with:
-          format: 'table'
-          exit-code: '1'
-          severity: 'CRITICAL,HIGH'
           scan-type: 'fs'
-          vuln-type: 'os,library'
+          scan-ref: '.'
+          format: 'table'
           ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
           timeout: '5m'
+          exit-code: '1'
