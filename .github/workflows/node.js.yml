@@ -22,12 +22,25 @@ jobs:
       with:
         node-version: '22'
         
-    - name: Frontend Start
+    - name: Install dependencies
+      run: npm install
+
+    - name: Start frontend server
+      run: npm run dev &
+      
+    - name: Wait for frontend server to be ready
       run: |
-        npm install
-    - name: Check the fronted is running
-      run: |
-        curl -I http://localhost:5173/
+        for i in {1..20}; do
+          if curl -s http://localhost:5173 > /dev/null; then
+            echo "Frontend is up!"
+            exit 0
+          fi
+          echo "Waiting for frontend..."
+          sleep 3
+        done
+        echo "Frontend did not start in time"
+        exit 1
+
   
   gitleaks-scan:
     runs-on: ubuntu-latest
