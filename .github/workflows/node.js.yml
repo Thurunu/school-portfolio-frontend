@@ -79,7 +79,7 @@ jobs:
             echo "Vulnerabilities found, creating github issue..."
             gh issue create  \
               --title "Trivy Scan: Vulnerabilities detected" \
-              --body "$(cat trivy-results.txt)" \
+              --body "$(cat trivy-report.txt)" \
               --label "security" 
           else
             echo "No critical or high vulnerabilities found ✅"
